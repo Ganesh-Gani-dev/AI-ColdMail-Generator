@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 const sendEmail = async (options) => {
     if(!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
         console.log('Email credentials are not set in environment variables');
@@ -24,4 +24,4 @@ const sendEmail = async (options) => {
     console.log(`Email sent to ${options.email}`);
 };
 
-module.exports = sendEmail;
+export default sendEmail;

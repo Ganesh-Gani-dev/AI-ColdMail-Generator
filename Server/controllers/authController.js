@@ -1,6 +1,6 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-const sendEmail = require('../utils/emailService');
+import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
+import sendEmail from '../utils/sendEmail.js';
 
 // Generate JWT Token
 const generateToken = (id) => {
@@ -12,7 +12,7 @@ const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
-exports.registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -70,7 +70,7 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-exports.verifyOTP = async (req, res) => {
+export const verifyOTP = async (req, res) => {
   try {
     const { userId, otp } = req.body;
 
@@ -122,7 +122,7 @@ exports.verifyOTP = async (req, res) => {
   }
 };
 
-exports.loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -144,7 +144,7 @@ exports.loginUser = async (req, res) => {
       });
     }
 
-    const isPasswordValid = await user.matchPassword(password);
+    const isPasswordValid = await user.comparePassword(password);
 
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid email or password' });
